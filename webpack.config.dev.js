@@ -4,6 +4,7 @@ import path from 'path';
 export default {
     devtool: 'inline-source-map',
     entry: [
+        'eventsource-polyfill',
         'webpack-hot-middleware/client?reload=true', //note that it reloads the page if hot module reloading fails.
         path.resolve(__dirname, 'src/index')
     ],
