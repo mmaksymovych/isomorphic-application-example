@@ -1,4 +1,5 @@
 'use strict';
+import './styles.scss';
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 
@@ -11,7 +12,7 @@ const defaultProps = {};
 const Hello = () => {
 
     return (
-        <div>
+        <div className="test">
             <h2>Hello World!</h2>
             <Link
                 to="hi"
