@@ -14,9 +14,6 @@ export default {
         publicPath: '/',
         filename: 'bundle.js'
     },
-    devServer: {
-        contentBase: path.resolve(__dirname, 'src')
-    },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
@@ -26,6 +23,12 @@ export default {
     ],
     module: {
         loaders: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                enforce: 'pre',
+                use: 'eslint-loader'
+            },
             {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel-loader']},
             {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
             {test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000'},
@@ -50,5 +53,13 @@ export default {
                 })
             },
         ]
+    },
+    resolve: {
+        extensions: ['*', '.js', '.jsx', '.es6', '.scss', '.css', '.png'],
+        modules: [
+            path.resolve(__dirname, './src/js'),
+            'node_modules'
+        ],
+        mainFiles: ["index"]
     }
 };

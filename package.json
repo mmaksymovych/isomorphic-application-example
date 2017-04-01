@@ -1,11 +1,11 @@
 {
   "scripts": {
     "prestart": "babel-node tools/startMessage.js",
-    "start": "npm-run-all --parallel open:src lint:watch test:watch",
+    "start": "npm-run-all --parallel open:src test:watch",
     "test": "mocha --reporter spec tools/testSetup.js \"src/**/*.test.js\"",
     "test:watch": "npm run test -- --watch",
     "open:src": "babel-node tools/srcServer.js",
-    "lint": "node_modules/.bin/esw webpack.config.* src tools",
+    "lint": "node_modules/.bin/esw webpack.config.dev.js src tools",
     "lint:watch": "npm run lint -- --watch"
   },
   "dependencies": {
@@ -13,7 +13,8 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
-    "react-router": "^2.6.0"
+    "react-router": "^2.6.0",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
@@ -25,6 +26,7 @@
     "colors": "^1.1.2",
     "css-loader": "^0.28.0",
     "eslint": "^3.18.0",
+    "eslint-import-resolver-webpack": "^0.8.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.10.2",
     "eslint-watch": "^3.0.1",

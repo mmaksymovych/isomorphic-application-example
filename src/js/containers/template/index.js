@@ -2,7 +2,7 @@
 import React, { PropTypes, Component } from 'react';
 
 const propTypes = {
-    children: PropTypes.object,
+    children: PropTypes.object
 };
 
 const defaultProps = {};
@@ -16,7 +16,7 @@ class Template extends Component {
         const { children } = this.props;
         return (
             <div>
-                <p>header</p>
+                <p>Header should be here.</p>
                 { children }
             </div>
         );

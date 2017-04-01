@@ -3,16 +3,22 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory  } from 'react-router';
-import Template from '../src/js/containers/template';
-import Hello from '../src/js/components/common/hello';
-import FirstPage from '../src/js/components/common/firstPage';
+import configureStore from './js/store';
+import { Provider } from 'react-redux';
+import Template from 'containers/template';
+import FirstPage from 'components/common/firstPage';
+import SecondPage from 'components/common/secondPage';
+
+const store = configureStore();
 
 render(
-    <Router history={browserHistory}>
-        <Route path="/" component={Template}>
-            <IndexRoute component={Hello}/>
-            <Route path="/hi" component={FirstPage}/>
-        </Route>
-    </Router>,
+    <Provider store={store}>
+        <Router history={browserHistory}>
+            <Route path="/" component={Template}>
+                <IndexRoute component={FirstPage}/>
+                <Route path="/second" component={SecondPage}/>
+            </Route>
+        </Router>
+    </Provider>,
     document.getElementById('app')
 );

@@ -13,11 +13,11 @@ const Hello = () => {
 
     return (
         <div className="first">
-            <h2>First Page!</h2>
+            <h2>Hello World!</h2>
             <Link
-                to=""
+                to="second"
             >
-                <p>hello</p>
+                <p>Second Page</p>
             </Link>
         </div>
     );

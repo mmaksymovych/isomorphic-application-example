@@ -6,16 +6,15 @@ import { Link } from 'react-router';
 const propTypes = {
     children: PropTypes.object,
 };
-
 const defaultProps = {};
 
 const Hello = () => {
 
     return (
         <div className="test">
-            <h2>Hello World!</h2>
+            <h2>Second Page</h2>
             <Link
-                to="hi"
+                to=""
             >
                 <p>first page</p>
             </Link>
