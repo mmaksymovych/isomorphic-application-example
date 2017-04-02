@@ -7,7 +7,7 @@ import configureStore from './js/store';
 import { Provider } from 'react-redux';
 import Template from 'containers/template';
 import FirstPage from 'components/common/firstPage';
-import SecondPage from 'components/common/secondPage';
+import SecondPage from 'containers/secondPage';
 
 const store = configureStore();
 

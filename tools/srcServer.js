@@ -17,8 +17,20 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
+app.get('/test', function(req, res) {
+    setTimeout(function(){
+        res.json([
+            {"name": "Maksym"},
+            {"name": "Petro"},
+            {"name": "Oleg"},
+            {"name": "Yura"},
+            {"name": "Levko"}
+        ])
+    }, 1500);
+});
+
 app.get('*', function(req, res) {
-  res.sendFile(path.join( __dirname, '../src/index.html'));
+    res.sendFile(path.join( __dirname, '../src/index.html'));
 });
 
 app.listen(port, function(err) {

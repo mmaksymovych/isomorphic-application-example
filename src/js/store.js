@@ -1,7 +1,8 @@
-import { createStore, compose } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
+import Thunk from 'redux-thunk';
 import reducers from 'reducers';
 
-let middlewares = [];
+let middlewares = [applyMiddleware(Thunk)];
 
 if (window.devToolsExtension) {
     middlewares.push(window.devToolsExtension());

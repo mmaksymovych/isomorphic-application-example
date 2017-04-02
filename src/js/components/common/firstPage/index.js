@@ -9,7 +9,7 @@ const propTypes = {
 
 const defaultProps = {};
 
-const Hello = () => {
+const FirstPage = () => {
 
     return (
         <div className="first">
@@ -23,7 +23,7 @@ const Hello = () => {
     );
 };
 
-Hello.propTypes = propTypes;
-Hello.defaultProps = defaultProps;
+FirstPage.propTypes = propTypes;
+FirstPage.defaultProps = defaultProps;
 
-export default Hello;
+export default FirstPage;
