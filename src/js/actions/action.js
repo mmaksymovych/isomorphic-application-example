@@ -2,12 +2,12 @@ import Axios from 'axios';
 import * as types from 'constants/types';
 import * as constants from 'constants/common';
 
-const localhost = `${constants.HOST.LOCAL}:${constants.PORT.LOCAL}`;
+//const localhost = `${constants.HOST.LOCAL}:${constants.PORT.LOCAL}`;
 const production = `${constants.HOST.PROD}`;
 
 export function getData() {
     return function(dispatch){
-        const url = `${localhost}/data`;
+        const url = `${production}/data`;
         const result = Axios.get(url);
         result.then(function(response){
             dispatch({
@@ -21,7 +21,7 @@ export function getData() {
 
 export function getNewData() {
     return function(dispatch){
-        const url = `${localhost}/newData`;
+        const url = `${production}/newData`;
         const result = Axios.get(url);
         result.then(function(response){
             dispatch({

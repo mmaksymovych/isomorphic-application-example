@@ -4,9 +4,9 @@ import reducers from 'reducers';
 
 let middlewares = [applyMiddleware(Thunk)];
 
-if (window.devToolsExtension) {
-    middlewares.push(window.devToolsExtension());
-}
+// if (window.devToolsExtension) {
+//     middlewares.push(window.devToolsExtension());
+// }
 
 export default function configureStore(initialState) {
 
