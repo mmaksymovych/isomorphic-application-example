@@ -1,4 +1,5 @@
 process.env.NODE_ENV = 'production';
+import React from 'react';
 import express from 'express';
 import path from 'path';
 import { renderToStaticMarkup } from 'react-dom/server'
@@ -56,6 +57,7 @@ function handleRender(req, res) {
             );
 
             const preloadedState = store.getState();
+
             return res.send(renderFullPage(html, preloadedState))
         });
 
@@ -65,6 +67,7 @@ function handleRender(req, res) {
     }
 }
 
+// it can be refactored later
 function renderFullPage(html, preloadedState) {
     return `
     <!doctype html>
@@ -74,7 +77,7 @@ function renderFullPage(html, preloadedState) {
         <meta name="google-site-verification" content="lTKYDExjnUHmTAtbMLdagUpZxPDM_ounAVytHL_EBz8">
       </head>
       <body>
-        <div id="root">${html}</div>
+        <div id="app">${html}</div>
         <script>
           // WARNING: See the following for security issues around embedding JSON in HTML:
           // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations

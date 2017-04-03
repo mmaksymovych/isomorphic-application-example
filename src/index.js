@@ -21,6 +21,7 @@ render(
         <Router history={browserHistory}>
             <Route path="/" component={Template}>
                 <IndexRoute component={Container}/>
+                <Route path="/server" component={Container}/>
             </Route>
         </Router>
     </Provider>,
