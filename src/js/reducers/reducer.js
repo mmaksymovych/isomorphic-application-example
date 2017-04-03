@@ -1,7 +1,7 @@
 import * as types from 'constants/types';
 
 const defaultState = {
-    message: "Hello World!",
+    message: "Isomorphic application example",
     data: []
 };
 
