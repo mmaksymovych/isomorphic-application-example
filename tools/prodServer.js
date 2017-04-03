@@ -28,6 +28,16 @@ app.get('/data', function(req, res) {
     ])
 });
 
+app.get('/newData', function(req, res) {
+    res.json([
+        "NEW-element1",
+        "NEW-element2",
+        "NEW-element3",
+        "NEW-element4",
+        "NEW-element5",
+    ])
+});
+
 app.use(handleRender);
 
 function handleRender(req, res) {

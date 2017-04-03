@@ -28,6 +28,16 @@ app.get('/data', function(req, res) {
     ])
 });
 
+app.get('/newData', function(req, res) {
+    res.json([
+        "NEW-element1",
+        "NEW-element2",
+        "NEW-element3",
+        "NEW-element4",
+        "NEW-element5",
+    ])
+});
+
 app.get('*', function(req, res) {
     res.sendFile(path.join( __dirname, '../src/index.html'));
 });

@@ -14,3 +14,17 @@ export function getData() {
         return result;
     };
 }
+
+export function getNewData() {
+    return function(dispatch){
+        const url = 'http://localhost:3000/newData';
+        const result = Axios.get(url);
+        result.then(function(response){
+            dispatch({
+                type: types.GET_NEW_DATA,
+                data: response.data
+            });
+        });
+        return result;
+    };
+}

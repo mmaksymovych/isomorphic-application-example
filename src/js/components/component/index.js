@@ -3,15 +3,17 @@ import './styles.scss';
 import React, { PropTypes, Component } from 'react';
 
 const propTypes = {
-    data: PropTypes.array
+    data: PropTypes.array,
+    onClick: PropTypes.func
 };
 const defaultProps = {};
 
-const SimpleComponent = ({data}) => {
+const SimpleComponent = ({data, onClick}) => {
 
     return (
         <div className="component">
             <h2>Dynamic data below</h2>
+            <button onClick={onClick}>get new data</button>
             {
                 !!data && data.map((el) => {
                     return(

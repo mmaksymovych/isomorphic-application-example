@@ -7,19 +7,29 @@ import * as actions from 'actions/action';
 
 const propTypes = {
     data: PropTypes.array,
-    actions: PropTypes.object
+    actions: PropTypes.object,
+    onClick: PropTypes.func
+
 };
 const defaultProps = {};
 
 class Container extends Component {
     constructor(props) {
         super(props);
+
+        this.onClick = this.onClick.bind(this);
     }
 
     componentWillMount() {
         const { data, actions } = this.props;
 
         (!!data && !data.length) && actions.getData();
+    }
+
+    onClick() {
+        const { actions } = this.props;
+
+        actions.getNewData();
     }
 
     render() {
@@ -29,6 +39,7 @@ class Container extends Component {
             <div>
                 <SimpleComponent
                     data={data}
+                    onClick={this.onClick}
                 />
             </div>
         );

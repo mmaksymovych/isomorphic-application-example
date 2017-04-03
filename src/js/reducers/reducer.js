@@ -11,6 +11,10 @@ export default function(state = defaultState, action = {}){
             return Object.assign({}, state, {
                 data: action.data
             });
+        case types.GET_NEW_DATA:
+            return Object.assign({}, state, {
+                data: action.data
+            });
         default:
             return state;
     }
