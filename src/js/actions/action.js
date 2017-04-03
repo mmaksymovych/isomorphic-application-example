@@ -5,9 +5,11 @@ import * as constants from 'constants/common';
 //const localhost = `${constants.HOST.LOCAL}:${constants.PORT.LOCAL}`;
 const production = `${constants.HOST.PROD}`;
 
+const host = production;
+
 export function getData() {
     return function(dispatch){
-        const url = `${production}/data`;
+        const url = `${host}/data`;
         const result = Axios.get(url);
         result.then(function(response){
             dispatch({
@@ -21,7 +23,7 @@ export function getData() {
 
 export function getNewData() {
     return function(dispatch){
-        const url = `${production}/newData`;
+        const url = `${host}/newData`;
         const result = Axios.get(url);
         result.then(function(response){
             dispatch({
