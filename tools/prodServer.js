@@ -1,5 +1,4 @@
 process.env.NODE_ENV = 'production';
-import React from 'react';
 import express from 'express';
 import path from 'path';
 import { renderToStaticMarkup } from 'react-dom/server'
