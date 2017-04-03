@@ -1,30 +1,25 @@
 'use strict';
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as testActions from 'actions/test';
 
 const propTypes = {
     children: PropTypes.object,
-    actions: PropTypes.object,
-    message: PropTypes.string,
+    message: PropTypes.string
 };
-
 const defaultProps = {};
 
 class Template extends Component {
     constructor(props) {
         super(props);
-
     }
-
 
     render() {
         const { children, message } = this.props;
+
         return (
             <div>
-                <p>Header message - <b>{message}</b></p>
-                { children }
+                <h2>{message}</h2>
+                {children}
             </div>
         );
     }
@@ -33,16 +28,10 @@ class Template extends Component {
 Template.propTypes = propTypes;
 Template.defaultProps = defaultProps;
 
-function mapStateToProps({hello}) {
+function mapStateToProps({reducer}) {
     return {
-        message: hello.message
+        message: reducer.message
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(testActions, dispatch)
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Template);
+export default connect(mapStateToProps, null)(Template);

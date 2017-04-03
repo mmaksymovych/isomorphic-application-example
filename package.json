@@ -1,12 +1,10 @@
 {
   "scripts": {
-    "prestart": "babel-node tools/startMessage.js",
-    "start": "npm-run-all --parallel open:src test:watch",
+    "predev": "babel-node tools/startMessage.js",
+    "dev": "npm-run-all --parallel open:src test:watch",
     "test": "mocha --reporter spec tools/testSetup.js \"src/**/*.test.js\"",
     "test:watch": "npm run test -- --watch",
-    "open:src": "babel-node tools/srcServer.js",
-    "lint": "node_modules/.bin/esw webpack.config.dev.js src tools",
-    "lint:watch": "npm run lint -- --watch"
+    "open:src": "babel-node tools/devServer.js"
   },
   "dependencies": {
     "axios": "^0.16.0",

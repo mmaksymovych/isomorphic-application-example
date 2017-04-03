@@ -1,17 +1,15 @@
+import * as types from 'constants/types';
+
 const defaultState = {
     message: "Hello World!",
-    people: []
+    data: []
 };
 
 export default function(state = defaultState, action = {}){
     switch(action.type){
-        case "PEOPLE":
+        case types.GET_DATA:
             return Object.assign({}, state, {
-                people: action.people
-            });
-        case "HELLO":
-            return Object.assign({}, state, {
-                message: action.message
+                data: action.data
             });
         default:
             return state;

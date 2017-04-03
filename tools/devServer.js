@@ -3,10 +3,11 @@ import webpack from 'webpack';
 import path from 'path';
 import config from '../webpack.config.dev';
 import open from 'open';
+import { PORT } from '../src/js/constants/common';
 
 /* eslint-disable no-console */
 
-const port = 3000;
+const port = PORT.LOCAL;
 const app = express();
 const compiler = webpack(config);
 
@@ -17,16 +18,14 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('/test', function(req, res) {
-    setTimeout(function(){
-        res.json([
-            {"name": "Maksym"},
-            {"name": "Petro"},
-            {"name": "Oleg"},
-            {"name": "Yura"},
-            {"name": "Levko"}
-        ])
-    }, 1500);
+app.get('/data', function(req, res) {
+    res.json([
+        "element1",
+        "element2",
+        "element3",
+        "element4",
+        "element5",
+    ])
 });
 
 app.get('*', function(req, res) {
