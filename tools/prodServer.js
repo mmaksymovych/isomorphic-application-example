@@ -12,8 +12,8 @@ import * as actions from 'actions/action';
 
 /* eslint-disable no-console */
 
-const port = PORT.PROD;
-//const port = PORT.LOCAL;
+//const port = PORT.PROD;
+const port = PORT.LOCAL;
 const app = express();
 
 app.use(compression());

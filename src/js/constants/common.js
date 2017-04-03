@@ -4,6 +4,6 @@ export const PORT = {
 };
 
 export const HOST = {
-    'PROD': '80',
-    'LOCAL': '3001'
+    'PROD': 'http://104.131.119.140',
+    'LOCAL': 'http://localhost'
 };
