@@ -1,7 +1,12 @@
 import express from 'express';
 import path from 'path';
+import { renderToStaticMarkup } from 'react-dom/server'
 import compression from 'compression';
-import { PORT } from '../src/js/constants/common';
+import ServerContainer from 'containers/server';
+import configureStore from 'store';
+import { Provider } from 'react-redux';
+import { PORT } from 'constants/common';
+import * as actions from 'actions/action';
 
 /* eslint-disable no-console */
 
@@ -22,9 +27,54 @@ app.get('/data', function(req, res) {
     ])
 });
 
-app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, '../dist/index.html'));
-});
+app.use(handleRender);
+
+function handleRender(req, res) {
+    if(req.url === '/server') {
+        console.log('server render');
+
+        const store = configureStore({});
+
+        store.dispatch(actions.getData()).then(() => {
+
+            // Render the component to a string
+            const html = renderToStaticMarkup(
+                <Provider store={store}>
+                    <ServerContainer/>
+                </Provider>
+            );
+
+            const preloadedState = store.getState();
+            return res.send(renderFullPage(html, preloadedState))
+        });
+
+    } else {
+        console.log("client render");
+        return res.sendFile(path.join(__dirname, '../dist/index.html'));
+    }
+}
+
+function renderFullPage(html, preloadedState) {
+    return `
+    <!doctype html>
+    <html>
+      <head>
+        <title>Redux Universal Example</title>
+        <meta name="google-site-verification" content="lTKYDExjnUHmTAtbMLdagUpZxPDM_ounAVytHL_EBz8">
+      </head>
+      <body>
+        <div id="root">${html}</div>
+        <script>
+          // WARNING: See the following for security issues around embedding JSON in HTML:
+          // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
+          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+        </script>
+        <script src="/static/bundle.js"></script>
+        <link rel="stylesheet" type="text/css" href="main.styles.min.css">
+      </body>
+    </html>
+    `
+}
 
 app.listen(port, function(err) {
     if (err) {

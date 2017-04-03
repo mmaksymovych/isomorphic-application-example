@@ -1,8 +1,8 @@
 var webpack = require('webpack');
 var path = require('path');
 var fs = require('fs');
-
 var nodeModules = {};
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 fs.readdirSync('node_modules')
     .filter(function(x) {
@@ -31,12 +31,33 @@ module.exports = {
                 ascii_only: true,
                 comments: false
             }
+        }),
+        new ExtractTextPlugin({
+            filename: '[name].styles.min.css'
         })
     ],
     module: {
         loaders: [
             {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel-loader']},
             {test: /\.js$/, include: path.join(__dirname, 'tools'), loaders: ['babel-loader']},
+            {
+                test: /\.(sass|scss)$/,
+                exclude: /node_modules/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            query: {
+                                importLoaders: 2,
+                                sourceMaps: true
+                            }
+                        },
+                        'postcss-loader',
+                        'sass-loader'
+                    ]
+                })
+            },
         ]
     },
     resolve: {

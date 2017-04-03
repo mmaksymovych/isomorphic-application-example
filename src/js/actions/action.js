@@ -3,7 +3,7 @@ import * as types from 'constants/types';
 
 export function getData() {
     return function(dispatch){
-        const url = `/data`;
+        const url = 'http://localhost:3000/data';
         const result = Axios.get(url);
         result.then(function(response){
             dispatch({
