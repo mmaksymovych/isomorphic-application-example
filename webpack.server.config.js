@@ -1,7 +1,8 @@
-var webpack = require('webpack');
-var path = require('path');
-var fs = require('fs');
-var nodeModules = {};
+const webpack = require('webpack');
+const path = require('path');
+const fs = require('fs');
+
+let nodeModules = {};
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 fs.readdirSync('node_modules')
@@ -25,12 +26,6 @@ module.exports = {
     plugins: [
         new webpack.ProvidePlugin({
             "React": "react",
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            output: {
-                ascii_only: true,
-                comments: false
-            }
         }),
         new ExtractTextPlugin({
             filename: '[name].styles.min.css'

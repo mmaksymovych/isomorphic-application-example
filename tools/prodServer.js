@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'production';
 import express from 'express';
 import path from 'path';
 import { renderToStaticMarkup } from 'react-dom/server'
@@ -69,7 +70,7 @@ function renderFullPage(html, preloadedState) {
           // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
           window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
         </script>
-        <script src="/static/bundle.js"></script>
+        <script src="bundle.js"></script>
         <link rel="stylesheet" type="text/css" href="main.styles.min.css">
       </body>
     </html>
