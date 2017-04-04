@@ -9,9 +9,11 @@
     "remove-dist": "node_modules/.bin/rimraf ./dist",
     "build:html": "babel-node tools/buildHtml.js",
     "prebuildProdWeb": "npm-run-all clean-dist test build:html",
+    "buildProd": "npm-run-all buildProdWeb buildProdServer",
     "buildProdWeb": "cross-env NODE_ENV=production babel-node tools/build.js",
     "buildProdServer": "cross-env NODE_ENV=production webpack --config webpack.server.config.js",
-    "postbuildProdServer": "cross-env NODE_ENV=production nodemon dist/server.js"
+    "nodemonProd": "cross-env NODE_ENV=production nodemon dist/server.js",
+    "pm2Prod": "cross-env NODE_ENV=production pm2 start dist/server.js"
   },
   "dependencies": {
     "axios": "^0.16.0",

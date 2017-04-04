@@ -41,10 +41,8 @@ app.use(handleRender);
 
 function handleRender(req, res) {
     if(req.url === '/server') {
-        console.log('server render');
 
         const store = configureStore({});
-
         store.dispatch(actions.getData()).then(() => {
 
             // Render the component to a string
@@ -60,7 +58,6 @@ function handleRender(req, res) {
         });
 
     } else {
-        console.log("client render");
         return res.sendFile(path.join(__dirname, '../dist/index.html'));
     }
 }
