@@ -29,6 +29,12 @@ module.exports = {
         }),
         new ExtractTextPlugin({
             filename: '[name].styles.min.css'
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            output: {
+                ascii_only: true,
+                comments: false
+            }
         })
     ],
     module: {

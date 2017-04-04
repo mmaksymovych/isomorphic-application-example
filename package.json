@@ -9,9 +9,9 @@
     "remove-dist": "node_modules/.bin/rimraf ./dist",
     "build:html": "babel-node tools/buildHtml.js",
     "prebuildProdWeb": "npm-run-all clean-dist test build:html",
-    "buildProdWeb": "babel-node tools/build.js",
-    "buildProdServer": "webpack --config webpack.server.config.js",
-    "postbuildProdServer": "nodemon dist/server.js"
+    "buildProdWeb": "cross-env NODE_ENV=production babel-node tools/build.js",
+    "buildProdServer": "cross-env NODE_ENV=production webpack --config webpack.server.config.js",
+    "postbuildProdServer": "cross-env NODE_ENV=production nodemon dist/server.js"
   },
   "dependencies": {
     "axios": "^0.16.0",
@@ -33,6 +33,7 @@
     "cheerio": "^0.22.0",
     "colors": "^1.1.2",
     "compression": "^1.6.2",
+    "cross-env": "^4.0.0",
     "css-loader": "^0.28.0",
     "eslint": "^3.18.0",
     "eslint-import-resolver-webpack": "^0.8.1",

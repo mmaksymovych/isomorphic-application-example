@@ -1,4 +1,3 @@
-process.env.NODE_ENV = 'production';
 import express from 'express';
 import path from 'path';
 import { renderToStaticMarkup } from 'react-dom/server'
@@ -11,8 +10,8 @@ import * as actions from 'actions/action';
 
 /* eslint-disable no-console */
 
-const port = PORT.PROD;
-//const port = PORT.LOCAL;
+const prod = process.env.NODE_ENV === 'production';
+const port = prod ? PORT.PROD : PORT.LOCAL;
 const app = express();
 
 app.use(compression());
