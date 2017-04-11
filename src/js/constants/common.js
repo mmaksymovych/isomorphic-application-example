@@ -1,4 +1,4 @@
 export const PORT = {
-    'PROD': '80',
-    'LOCAL': '3000'
+    'PROD': '3000',
+    'LOCAL': '3002'
 };

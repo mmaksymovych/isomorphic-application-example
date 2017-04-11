@@ -7,9 +7,10 @@ import * as actions from 'actions/action';
 
 const propTypes = {
     data: PropTypes.array,
+    user: PropTypes.object,
     actions: PropTypes.object,
-    onClick: PropTypes.func
-
+    onClick: PropTypes.func,
+    getData: PropTypes.func,
 };
 const defaultProps = {};
 
@@ -18,6 +19,7 @@ class Container extends Component {
         super(props);
 
         this.onClick = this.onClick.bind(this);
+        this.getData = this.getData.bind(this);
     }
 
     componentWillMount() {
@@ -29,17 +31,29 @@ class Container extends Component {
     onClick() {
         const { actions } = this.props;
 
-        actions.getNewData();
+        const data = {
+            emailaddress: "new.user1@mailinator.com",
+            password: "1234qwer"
+        };
+        actions.login(data);
+    }
+
+    getData() {
+        const { actions, user } = this.props;
+
+        actions.getUser(user.guid);
     }
 
     render() {
-        const { data } = this.props;
+        const { data, user } = this.props;
 
         return (
             <div>
                 <SimpleComponent
                     data={data}
+                    user={user}
                     onClick={this.onClick}
+                    getData={this.getData}
                 />
             </div>
         );
@@ -51,7 +65,8 @@ Container.defaultProps = defaultProps;
 
 function mapStateToProps({reducer}) {
     return {
-        data: reducer.data
+        data: reducer.data,
+        user: reducer.user
     };
 }
 

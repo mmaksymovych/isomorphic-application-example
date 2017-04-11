@@ -4,16 +4,22 @@ import React, { PropTypes, Component } from 'react';
 
 const propTypes = {
     data: PropTypes.array,
-    onClick: PropTypes.func
+    user: PropTypes.object,
+    onClick: PropTypes.func,
+    getData: PropTypes.func
 };
 const defaultProps = {};
 
-const SimpleComponent = ({data, onClick}) => {
+const SimpleComponent = ({data, user, onClick, getData}) => {
 
     return (
         <div className="component">
             <h2>Dynamic data below</h2>
-            <button onClick={onClick}>get new data</button>
+            <button onClick={onClick}>login</button>
+            <button onClick={getData}>getData</button>
+            {
+                !!user && <p>{`${user.firstname} ${user.lastname}`}</p>
+            }
             {
                 !!data && data.map((el) => {
                     return(

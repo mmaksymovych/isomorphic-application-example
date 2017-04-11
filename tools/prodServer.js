@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import path from 'path';
 import { renderToStaticMarkup } from 'react-dom/server'
 import compression from 'compression';
@@ -18,6 +19,7 @@ const app = express();
 
 app.use(compression());
 app.use(express.static('dist'));
+app.use(cookieParser());
 
 app.get('/data', function(req, res) {
     res.json([
@@ -43,10 +45,16 @@ app.use(handleRender);
 
 function handleRender(req, res) {
     if(req.url === '/server') {
+        console.log('server');
+        const data = {
+            emailaddress: "new.user1@mailinator.com",
+            password: "1234qwer"
+        };
 
         const store = configureStore({});
-        store.dispatch(actions.getData()).then(() => {
+        store.dispatch(actions.login(data)).then(() => {
 
+            console.log(data);
             // Render the component to a string
             const html = renderToStaticMarkup(
                 <Provider store={store}>
@@ -54,11 +62,35 @@ function handleRender(req, res) {
                 </Provider>
             );
 
+            console.log("html");
             const preloadedState = store.getState();
-            return res.send(renderFullPage(html, preloadedState))
-        });
 
-    } else {
+            return res.send(renderFullPage(html, preloadedState))
+        }).catch((response) => console.log(`error - ${response}`));
+
+    }
+    if(req.url === '/server2') {
+        console.log('server2');
+
+        const store = configureStore({});
+        store.dispatch(actions.getUser()).then(({data}) => {
+
+            console.log(data);
+            // Render the component to a string
+            const html = renderToStaticMarkup(
+                <Provider store={store}>
+                    <ServerContainer/>
+                </Provider>
+            );
+
+            console.log("html");
+            const preloadedState = store.getState();
+
+            return res.send(renderFullPage(html, preloadedState))
+        }).catch((response) => console.log(`error - ${response}`));
+    }
+    else {
+        console.log('client');
         return res.sendFile(path.join(__dirname, '../dist/index.html'));
     }
 }
