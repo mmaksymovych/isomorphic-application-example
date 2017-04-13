@@ -18,23 +18,13 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('/data', function(req, res) {
+app.get('/services/data', function(req, res) {
     res.json([
         "element1",
         "element2",
         "element3",
         "element4",
         "element5",
-    ])
-});
-
-app.get('/newData', function(req, res) {
-    res.json([
-        "NEW-element1",
-        "NEW-element2",
-        "NEW-element3",
-        "NEW-element4",
-        "NEW-element5",
     ])
 });
 

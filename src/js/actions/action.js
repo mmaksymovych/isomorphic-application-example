@@ -3,7 +3,7 @@ import * as types from 'constants/types';
 
 export function login(data) {
     return function (dispatch) {
-        const url = `/rest/auth/login`;
+        const url = `/services/rest/auth/login`;
         const result = Axios.post(url, data);
         result.then((response) => {
             console.log(response);
@@ -16,10 +16,14 @@ export function login(data) {
     };
 }
 
-export function getUser(guid) {
+export function getUser(guid, cookie) {
     return function (dispatch) {
-        const url = `/rest/user/${guid}?userFetchMask=3583`;
-        const result = Axios.get(url);
+        const url = `/services/rest/user/${guid}?userFetchMask=3583`;
+        const result = Axios.get(url, {
+            headers: {
+                cookie: cookie
+            }
+        });
         result.then((response) => {
             dispatch({
                 type: types.LOGIN,
@@ -31,29 +35,15 @@ export function getUser(guid) {
 }
 
 export function getData() {
-    return function(dispatch){
-        const url = `/data`;
+    return function (dispatch) {
+        const url = `/services/data`;
         const result = Axios.get(url);
-        result.then(function(response){
+        result.then(function (response) {
             dispatch({
                 type: types.GET_DATA,
                 data: response.data
             });
         });
         return result;
-    };
-}
-
-export function getNewData() {
-    return function(dispatch){
-        const url = `/newData`;
-        const result = Axios.get(url);
-        result.then(function(response){
-            dispatch({
-                type: types.GET_NEW_DATA,
-                data: response.data
-            });
-        });
-        return result;
-    };
+    }
 }

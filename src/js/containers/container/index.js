@@ -32,7 +32,7 @@ class Container extends Component {
         const { actions } = this.props;
 
         const data = {
-            emailaddress: "new.user1@mailinator.com",
+            emailaddress: "new.user@mailinator.com",
             password: "1234qwer"
         };
         actions.login(data);

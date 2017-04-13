@@ -25,12 +25,6 @@ export default {
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            output: {
-                ascii_only: true,
-                comments: false
-            }
         })
     ],
     module: {

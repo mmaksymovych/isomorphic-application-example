@@ -16,7 +16,7 @@ const SimpleComponent = ({data, user, onClick, getData}) => {
         <div className="component">
             <h2>Dynamic data below</h2>
             <button onClick={onClick}>login</button>
-            <button onClick={getData}>getData</button>
+            <button onClick={getData}>getUserData</button>
             {
                 !!user && <p>{`${user.firstname} ${user.lastname}`}</p>
             }

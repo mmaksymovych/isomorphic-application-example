@@ -19,9 +19,9 @@ const store = configureStore(preloadedState);
 render(
     <Provider store={store}>
         <Router history={browserHistory}>
-            <Route path="/" component={Template}>
+            <Route path="services" component={Template}>
                 <IndexRoute component={Container}/>
-                <Route path="/server" component={Container}/>
+                <Route path="test" component={Container}/>
             </Route>
         </Router>
     </Provider>,

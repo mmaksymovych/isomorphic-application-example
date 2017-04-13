@@ -1,7 +1,6 @@
+import React from 'react';
 import express from 'express';
-import cookieParser from 'cookie-parser';
-import path from 'path';
-import { renderToStaticMarkup } from 'react-dom/server'
+import { renderToStaticMarkup } from 'react-dom/server';
 import compression from 'compression';
 import fs from 'fs';
 import cheerio from 'cheerio';
@@ -18,82 +17,51 @@ const port = prod ? PORT.PROD : PORT.LOCAL;
 const app = express();
 
 app.use(compression());
-app.use(express.static('dist'));
-app.use(cookieParser());
+app.use('/services', express.static('dist'));
 
-app.get('/data', function(req, res) {
+app.get('/services/data', function(req, res) {
     res.json([
         "element1",
         "element2",
         "element3",
         "element4",
         "element5",
-    ])
+    ]);
 });
 
-app.get('/newData', function(req, res) {
-    res.json([
-        "NEW-element1",
-        "NEW-element2",
-        "NEW-element3",
-        "NEW-element4",
-        "NEW-element5",
-    ])
+app.get("/services/test", (req, res) => {
+    return handleRender(req, res);
 });
-
-app.use(handleRender);
 
 function handleRender(req, res) {
-    if(req.url === '/server') {
-        console.log('server');
-        const data = {
-            emailaddress: "new.user1@mailinator.com",
-            password: "1234qwer"
-        };
+        console.log('server side');
+
+        const cookie = req.headers.cookie;
+        console.log(`COOKIE - ${cookie}`);
 
         const store = configureStore({});
-        store.dispatch(actions.login(data)).then(() => {
 
-            console.log(data);
-            // Render the component to a string
-            const html = renderToStaticMarkup(
-                <Provider store={store}>
-                    <ServerContainer/>
-                </Provider>
-            );
+        const userPromise = store.dispatch(actions.getUser('1dbadf6e-b477-4d5f-8c46-addf6cfbd6e5', cookie));
+        const dataPromise = store.dispatch(actions.getData());
 
-            console.log("html");
-            const preloadedState = store.getState();
+        Promise.all([userPromise, dataPromise])
+            .then(() => {
+                // Render the component to a string
+                const html = renderToStaticMarkup(
+                    <Provider store={store}>
+                        <ServerContainer/>
+                    </Provider>
+                );
 
-            return res.send(renderFullPage(html, preloadedState))
-        }).catch((response) => console.log(`error - ${response}`));
+                const preloadedState = store.getState();
 
-    }
-    if(req.url === '/server2') {
-        console.log('server2');
-
-        const store = configureStore({});
-        store.dispatch(actions.getUser()).then(({data}) => {
-
-            console.log(data);
-            // Render the component to a string
-            const html = renderToStaticMarkup(
-                <Provider store={store}>
-                    <ServerContainer/>
-                </Provider>
-            );
-
-            console.log("html");
-            const preloadedState = store.getState();
-
-            return res.send(renderFullPage(html, preloadedState))
-        }).catch((response) => console.log(`error - ${response}`));
-    }
-    else {
-        console.log('client');
-        return res.sendFile(path.join(__dirname, '../dist/index.html'));
-    }
-}
+                return res.send(renderFullPage(html, preloadedState));
+            })
+            .catch(({response}) => {
+                console.log('ERROR');
+                return res.status(response.status).send(response.data.errorMsg);
+            });
+        }
 
 function renderFullPage(html, preloadedState) {
 
